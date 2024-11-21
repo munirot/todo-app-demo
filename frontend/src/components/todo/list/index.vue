@@ -1,0 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
+<template src="./template.html" ></template>
+<script src="./script.js" ></script>
+<style scoped src="./style.css" ></style>

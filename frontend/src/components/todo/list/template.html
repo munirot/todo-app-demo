@@ -1,0 +1,24 @@
+<div>
+  <ul>
+    <li
+      v-for="(todo,todoIndex) in todos"
+      :key="(todo,todoIndex)"
+      class="todo-item"
+    >
+      <span
+        class="status-icon"
+        @click="toggleTodo(todo)"
+        :class="{ completed: todo.completed }"
+      >
+        {{ todo.status ? '✔️' : '⭕' }}
+      </span>
+      <span :class="{ completed: todo.status }" class="todo-text">
+        {{ todo.title }}
+      </span>
+      <div class="action">
+        <button class="btn" @click="updateTodo(todoIndex)">Edit</button>
+        <button class="btn" @click="removeTodo(todoIndex)">Delete</button>
+      </div>
+    </li>
+  </ul>
+</div>

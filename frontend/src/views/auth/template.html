@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="login-page">
+    <div class="form">
+      <div
+        v-if="!registerForm.active"
+        class="login-form"
+        v-bind:class="{ error: emptyFields }"
+      >
+        <h1>Sign In</h1>
+        <form class="form-group" @submit.prevent="login">
+          <input
+            v-model="loginForm.email"
+            type="email"
+            placeholder="Email"
+            required
+          />
+          <input
+            v-model="loginForm.password"
+            type="password"
+            placeholder="Password"
+            required
+          />
+          <button @click="login" class="btn btn-primary">Login</button>
+          <p>
+            Don't have an account?
+            <a
+              href="#"
+              @click="registerForm.active = !registerForm.active, emptyFields = false"
+              >Sign up here</a
+            >
+          </p>
+        </form>
+      </div>
+
+      <div v-else class="card register" v-bind:class="{ error: emptyFields }">
+        <h1>Sign Up</h1>
+        <form class="form-group">
+         <input
+            v-model="registerForm.username"
+            type="text"
+            placeholder="Username"
+            required
+          />
+          <input
+            v-model="registerForm.email"
+            type="email"
+            placeholder="Email"
+            required
+          />
+          <input
+            v-model="registerForm.password"
+            type="password"
+            placeholder="Password"
+            required
+          />
+          <button @click="doRegister" class="btn btn-primary">Sign Up</button>
+          <p>
+            Already have an account?
+            <a
+              href="#"
+              @click="registerForm.active = !registerForm.active, emptyFields = false"
+              >Sign in here</a
+            >
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

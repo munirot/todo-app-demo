@@ -1,0 +1,11 @@
+<div class="row">
+  <input
+    id="input-box"
+    v-model="title"
+    type="text"
+    placeholder="Add a new task"
+    @keyup.enter="addItem"
+  />
+
+  <button @click="addItem">Add Item</button>
+</div>

@@ -1,0 +1,42 @@
+<div>
+  <div class="con-login"></div>
+  <div class="box-form">
+    <form>
+      <div class="imgcontainer">
+        <div class="logo">Angkor DC</div>
+      </div>
+
+      <div class="container">
+        <label for="uname">Email</label>
+        <input
+          v-on:keyup.enter="login"
+          v-model="body.email"
+          type="text"
+          placeholder="Email"
+          class="input-info outline-success"
+        />
+        <label for="psw">Password</label>
+        <div style="display: flex;align-items: center;">
+          <input
+            v-on:keyup.enter="login"
+            v-model="body.password"
+            :type="show ? 'text' : 'password'"
+            placeholder="Enter Password"
+            class="input-info outline-success"
+          />
+          <i class="fas fa-eye show-icon" v-if="show" @click="show = !show"></i>
+          <i
+            class="fas fa-eye-slash show-icon"
+            v-else
+            @click="show = !show"
+          ></i>
+        </div>
+
+        <p v-if="!isLogin" class="btn btn-info mt12 mb30" @click="login">
+          Login
+        </p>
+        <p v-else class="btn btn-info mt12 mb30">Loading...</p>
+      </div>
+    </form>
+  </div>
+</div>
