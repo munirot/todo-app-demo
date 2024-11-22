@@ -1,6 +1,6 @@
 # **Todo App (MEVN Stack)**
 
-A simple full-stack Todo application built with the MEVN stack (MongoDB, Express.js, Vue.js, Node.js). The app allows users to register, log in, and manage their personal todo lists with features like creating, reading, updating, and deleting tasks.
+A simple full-stack Todo application built with the MEVN stack (MongoDB, Express.js, Vue.js, Node.js). The app allows users to register, login, logout, and manage their to-do lists with features like creating, reading, updating status, and deleting tasks.
 
 ---
 
