@@ -15,9 +15,7 @@ A simple full-stack Todo application built with the MEVN stack (MongoDB, Express
 
 - **Authentication**: User registration and login with JWT-based authentication.
 - **CRUD**: Create, read, update, and delete todos.
-- **Completion Toggle**: Mark todos as completed or pending.
-- **Secure**: Input validation and sanitization to prevent SQL injection and other vulnerabilities.
-- **Responsive**: User-friendly and mobile-compatible frontend.
+- **Completion Toggle**: Mark todos as completed or incomplete.
 
 ---
 
@@ -67,7 +65,7 @@ npm install
 #### 3. Create a .env file in the backend directory and configure it:
 ```bash
 PORT=3004
-MONGO_URI=mongodb://localhost:27017/todoapp
+MONGO_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 ```
 
@@ -91,7 +89,7 @@ npm install
 
 #### 3. Create a .env file in the backend directory and configure it:
 ```bash
-VUE_APP_API_URL=http://localhost:3004/api
+VUE_APP_API_URL=backend_url
 ```
 
 #### 4. Start the backend server:
