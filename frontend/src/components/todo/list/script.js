@@ -8,33 +8,50 @@ export default {
     };
   },
   components: {},
-  created() {},
-  mounted() {
-    this.getTodos();
+  created() {
+    this.getTodos(); // fetching initial required data
   },
+  mounted() {},
   methods: {
     getTodos() {
       try {
-        console.log("==========================");
         Service.todoList().then((response) => {
-          console.log("In View", response);
+          if (response.status == 200) {
+            this.todos = response.data;
+            this.todos.reverse();
+          }
         });
       } catch (err) {
-        console.error("Error logging in:", err);
+        console.error("Error get todo in:", err);
       }
     },
 
-    async toggleTodo(todo) {
+    updateTodo(todo) {
       try {
-        todo.status = !todo.status; // Toggle the status
-        // await updateTodo(todo._id, { status: todo.status });
+        let body = {
+          completed: !todo.completed,
+        };
+
+        Service.updateTodo(todo._id, body).then((response) => {
+          if (response.status == 200) {
+            todo.completed = !todo.completed;
+          }
+        });
       } catch (error) {
         console.error("Error toggling todo:", error);
       }
     },
 
-    removeTodo(index) {
-      console.log(index);
+    deleteTodo(id, index) {
+      try {
+        Service.deleteTodo(id).then((response) => {
+          if (response.status == 200) {
+            this.todos.splice(index, 1);
+          } else this.$toast.warning(response.data.message);
+        });
+      } catch (error) {
+        console.error("Error delete todo:", error);
+      }
     },
   },
 };

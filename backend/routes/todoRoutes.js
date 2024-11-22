@@ -1,7 +1,6 @@
 const express = require('express');
-const { getTodos, createTodo, updateTodo, deleteTodo} = require('../controllers/todoController');
+const { getTodos, createTodo, updateTodo, deleteTodo } = require('../controllers/todoController');
 const verifyUserAuth = require('../middleware/authMiddleware');
-const { get } = require('mongoose');
 const router = express.Router();
 
 router.route('/').get(verifyUserAuth, getTodos).post(verifyUserAuth, createTodo)

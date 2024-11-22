@@ -1,11 +1,13 @@
 <div class="container">
+  <Navbar></Navbar>
   <div class="todo-app">
     <div class="app-title">
       <h2>To-do app</h2>
       <i class="fa-solid fa-book-bookmark"></i>
     </div>
-     
-    <CreateTodo @todo-added="addTodoToList"/>
-    <TodoList ref="todoList"/>
+
+    <!-- registered local component -->
+    <CreateTodo @todo-added="addTodoToList" />
+    <TodoList ref="todoList" />
   </div>
 </div>

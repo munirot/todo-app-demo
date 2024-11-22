@@ -1,6 +1,16 @@
 <template>
-  <router-view/>
+  <router-view />
 </template>
+
+<script>
+
+
+export default {
+  name: "App",
+  components: {
+  }
+}
+</script>
 
 <style>
 #app {
@@ -17,5 +27,10 @@ body {
   font-weight: 300 !important;
   margin: 0;
   padding: 0;
+}
+
+/* custom toast style */
+.v-toast.v-toast--bottom {
+  margin-right: 10px;
 }
 </style>

@@ -1,23 +1,25 @@
-<div>
+<div class="scrollable-cont">
   <ul>
     <li
-      v-for="(todo,todoIndex) in todos"
-      :key="(todo,todoIndex)"
+      v-for="(todo, todoIndex) in todos"
+      :key="(todo, todoIndex)"
       class="todo-item"
     >
       <span
         class="status-icon"
-        @click="toggleTodo(todo)"
+        @click="updateTodo(todo)"
         :class="{ completed: todo.completed }"
+        title="Update todo"
       >
-        {{ todo.status ? '✔️' : '⭕' }}
+        {{ todo.completed ? '✔️' : '⭕' }}
       </span>
-      <span :class="{ completed: todo.status }" class="todo-text">
+      <span :class="{ completed: todo.completed }" class="todo-text">
         {{ todo.title }}
       </span>
       <div class="action">
-        <button class="btn" @click="updateTodo(todoIndex)">Edit</button>
-        <button class="btn" @click="removeTodo(todoIndex)">Delete</button>
+        <button class="btn" @click="deleteTodo(todo._id, todoIndex)">
+          Delete
+        </button>
       </div>
     </li>
   </ul>

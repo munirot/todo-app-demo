@@ -1,11 +1,7 @@
 <div class="container">
   <div class="login-page">
     <div class="form">
-      <div
-        v-if="!registerForm.active"
-        class="login-form"
-        v-bind:class="{ error: emptyFields }"
-      >
+      <div v-if="!registerForm.active" class="login-form">
         <h1>Sign In</h1>
         <form class="form-group" @submit.prevent="login">
           <input
@@ -20,22 +16,20 @@
             placeholder="Password"
             required
           />
-          <button @click="login" class="btn btn-primary">Login</button>
+          <button class="btn btn-primary">Login</button>
           <p>
             Don't have an account?
-            <a
-              href="#"
-              @click="registerForm.active = !registerForm.active, emptyFields = false"
+            <a href="#" @click="registerForm.active = !registerForm.active"
               >Sign up here</a
             >
           </p>
         </form>
       </div>
 
-      <div v-else class="card register" v-bind:class="{ error: emptyFields }">
+      <div v-else class="card register">
         <h1>Sign Up</h1>
-        <form class="form-group">
-         <input
+        <form class="form-group" @submit.prevent="register">
+          <input
             v-model="registerForm.username"
             type="text"
             placeholder="Username"
@@ -53,12 +47,10 @@
             placeholder="Password"
             required
           />
-          <button @click="doRegister" class="btn btn-primary">Sign Up</button>
+          <button class="btn btn-primary">Sign Up</button>
           <p>
             Already have an account?
-            <a
-              href="#"
-              @click="registerForm.active = !registerForm.active, emptyFields = false"
+            <a href="#" @click="registerForm.active = !registerForm.active"
               >Sign in here</a
             >
           </p>

@@ -1,0 +1,21 @@
+nav {
+  height: 50px;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 40px;
+}
+
+#logout-btn {
+  height: max-content;
+  align-self: center;
+  padding: 10px;
+  background: #9176a4b8;
+  border-color: #bb82c6;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 600;
+}

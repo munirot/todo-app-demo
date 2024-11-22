@@ -1,27 +1,22 @@
-import TodoList from '../../components/todo/list';
-import CreateTodo from '../../components/todo/create';
+import TodoList from "@/components/todo/list";
+import CreateTodo from "@/components/todo/create";
+import Navbar from "@/components/navbar";
 
 export default {
   name: "todo",
   data() {
-    return {
-      
-    };
+    return {};
   },
   components: {
+    Navbar,
     TodoList,
-    CreateTodo
+    CreateTodo,
   },
   created() {},
   mounted() {},
   methods: {
     addTodoToList(newTodo) {
-      console.log(newTodo);
-      let todo = {
-        'title': newTodo,
-        'status': false
-      }
-      this.$refs.todoList.todos.push(todo);
+      this.$refs.todoList.todos.unshift(newTodo); // get value from the child component and add it to the 'todos' array
     },
   },
 };

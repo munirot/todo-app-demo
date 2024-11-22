@@ -1,13 +1,29 @@
 import axios from "axios";
+import VueCookies from "vue-cookies";
 const apiUrl = process.env.VUE_APP_API_BASE_URL;
 
-let token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3M2RmZjRiZmVlNGQ0NjUxNTBhNWQxMSIsImlhdCI6MTczMjEyMzQzNiwiZXhwIjoxNzMyMzgyNjM2fQ.A_tkA4Yl6TDSt1ier6Tmd3SmECsD1ZPPgDOdZW3NM-4";
 const api = {
+  register: apiUrl + "/auth/register",
   login: apiUrl + "/auth/login",
-  todoList: apiUrl + "/todo",
+  todo: apiUrl + "/todo",
 };
+
 const service = {};
+
+service.headers = function () {
+  let token = VueCookies.get("accessToken");
+  if (token) {
+    let header = {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer " + token,
+      },
+    };
+    return header;
+  } else {
+    return service.logout();
+  }
+};
 
 service.headerWithoutToken = function () {
   let header = {
@@ -18,18 +34,16 @@ service.headerWithoutToken = function () {
   return header;
 };
 
-service.validateError = function (error) {
-  let httpCode = error.response.status;
-  console.log(httpCode);
-  switch (httpCode) {
-    case 401:
-      if (error.response.data.statusCode == "4410") {
-        return error.response.data;
-      }
-      break;
-    default:
-      return error.response.data;
-  }
+//register
+service.register = async function (body) {
+  return await axios
+    .post(api.register, body, service.headerWithoutToken())
+    .then((response) => {
+      return response;
+    })
+    .catch(function (error) {
+      return error.response;
+    });
 };
 
 //login
@@ -37,24 +51,65 @@ service.login = async function (body) {
   return await axios
     .post(api.login, body, service.headerWithoutToken())
     .then((response) => {
-      console.log("In service", response);
-      return response.data;
+      return response;
     })
     .catch(function (error) {
-      return service.validateError(error);
+      return error.response;
     });
+};
+
+//logout
+service.logout = function () {
+  VueCookies.remove("accessToken");
+  location.reload();
 };
 
 //get todo list
 service.todoList = async function () {
-  let header = {
-    "Content-Type": "application/json",
-    authorization: "Bearer " + token,
-  };
-
-  console.log("Header =>>>>", header);
-  return await axios.get(api.todoList, header).then((response) => {
-    console.log(response);
-  });
+  return await axios
+    .get(api.todo, service.headers())
+    .then((response) => {
+      return response;
+    })
+    .catch(function (error) {
+      return error.response;
+    });
 };
+
+//create todo
+service.createTodo = async function (body) {
+  return await axios
+    .post(api.todo, body, service.headers())
+    .then((response) => {
+      return response.data;
+    })
+    .catch(function (error) {
+      return error.response;
+    });
+};
+
+//create todo
+service.updateTodo = async function (id, body) {
+  return await axios
+    .put(api.todo + "/" + id, body, service.headers())
+    .then((response) => {
+      return response;
+    })
+    .catch(function (error) {
+      return error.response;
+    });
+};
+
+//delete todo by id
+service.deleteTodo = async function (id) {
+  return await axios
+    .delete(api.todo + "/" + id, service.headers())
+    .then((response) => {
+      return response;
+    })
+    .catch(function (error) {
+      return error.response;
+    });
+};
+
 export default service;
