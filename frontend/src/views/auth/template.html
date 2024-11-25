@@ -15,6 +15,8 @@
             type="password"
             placeholder="Password"
             required
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
           />
           <button class="btn btn-primary">Login</button>
           <p>
@@ -45,6 +47,8 @@
             v-model="registerForm.password"
             type="password"
             placeholder="Password"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
             required
           />
           <button class="btn btn-primary">Sign Up</button>

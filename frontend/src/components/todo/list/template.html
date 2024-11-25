@@ -7,17 +7,52 @@
     >
       <span
         class="status-icon"
-        @click="updateTodo(todo)"
+        @click="updateTodo('status', todo, todoIndex)"
         :class="{ completed: todo.completed }"
         title="Update todo"
       >
         {{ todo.completed ? '✔️' : '⭕' }}
       </span>
-      <span :class="{ completed: todo.completed }" class="todo-text">
+      <span
+        v-if="!todo.isEditing"
+        :class="{ completed: todo.completed }"
+        class="todo-text"
+      >
         {{ todo.title }}
       </span>
+
+      <!-- update input field -->
+      <input
+        v-else
+        type="text"
+        v-model="todo.editTitle"
+        class="todo-edit"
+        @keyup.enter="updateTodo('title', todo, todoIndex)"
+      />
+
       <div class="action">
-        <button class="btn" @click="deleteTodo(todo._id, todoIndex)">
+        <button
+          class="btn edit"
+          v-if="!todo.isEditing"
+          @click="enableEdit(todo)"
+        >
+          Edit
+        </button>
+        <button
+          class="btn save"
+          v-else
+          @click="updateTodo('title', todo, todoIndex)"
+        >
+          Save
+        </button>
+        <button
+          class="btn cancel"
+          v-if="todo.isEditing"
+          @click="cancelEdit(todo)"
+        >
+          Cancel
+        </button>
+        <button class="btn" v-else @click="deleteTodo(todo._id, todoIndex)">
           Delete
         </button>
       </div>

@@ -22,10 +22,10 @@ input {
   width: 100%;
   border: none;
   outline: none;
-  background-color: transparent;
+  background-color: transparent !important;
   padding: 12px;
   font-size: 17px;
-  padding-left: 20px;
+  margin-left: 16px;
 }
 button {
   border: none;

@@ -26,15 +26,44 @@ export default {
       }
     },
 
-    updateTodo(todo) {
+    enableEdit(todo) {
+      todo.isEditing = true;
+      todo.editTitle = todo.title;
+    },
+
+    cancelEdit(todo) {
+      todo.isEditing = false;
+    },
+
+    updateTodo(type, todo, index) {
       try {
-        let body = {
-          completed: !todo.completed,
-        };
+        let body = {};
+
+        if (type === "status") {
+          body = {
+            completed: !todo.completed,
+          };
+        } else {
+          if (!todo.title.trim()) {
+            this.$toast.warning("Title cannot be empty!");
+            return;
+          } else if (todo.title === todo.editTitle) {
+            todo.isEditing = false;
+            return;
+          }
+
+          todo.isEditing = false;
+          body = {
+            title: todo.editTitle,
+          };
+        }
 
         Service.updateTodo(todo._id, body).then((response) => {
           if (response.status == 200) {
-            todo.completed = !todo.completed;
+            if (type === "status") {
+              todo.completed = !todo.completed;
+            } else todo.title = todo.editTitle;
+            todo.isEditing = false;
           }
         });
       } catch (error) {
@@ -42,9 +71,9 @@ export default {
       }
     },
 
-    deleteTodo(id, index) {
+    deleteTodo(todoId, index) {
       try {
-        Service.deleteTodo(id).then((response) => {
+        Service.deleteTodo(todoId).then((response) => {
           if (response.status == 200) {
             this.todos.splice(index, 1);
           } else this.$toast.warning(response.data.message);

@@ -14,7 +14,6 @@ export default {
         email: "",
         password: "",
       },
-      emptyFields: false,
     };
   },
   components: {},
@@ -32,13 +31,16 @@ export default {
           };
 
           Service.login(body).then((response) => {
-            if (response.status == 200) {
+            console.log(response);
+            if (response && response.status === 200) {
               this.$cookies.set("accessToken", response.data.token);
               this.$router.push({
                 name: "home",
                 params: { title: "Home" },
               }); // redirect the page after login successfully
-            } else this.$toast.warning(response.data.message);
+            } else if (response && response.status == 401) {
+              this.$toast.warning(response.data.message);
+            } else this.$toast.warning("Something went wrong!");
           });
         }
       } catch (err) {
@@ -62,8 +64,10 @@ export default {
           };
 
           Service.register(body).then((response) => {
-            console.log(response);
-            if (response.status == 200 || response.status == 201) {
+            if (
+              response &&
+              (response.status == 200 || response.status == 201)
+            ) {
               this.$toast.success("Register successfully!");
               this.registerForm = {
                 email: "",
@@ -71,7 +75,9 @@ export default {
                 password: "",
                 active: false,
               }; // clear the input after register successfully and active form login
-            } else this.$toast.warning(response.data.message);
+            } else if (response && response.status == 400) {
+              this.$toast.warning(response.data.message);
+            } else this.$toast.warning("Something went wrong!");
           });
         }
       } catch (err) {

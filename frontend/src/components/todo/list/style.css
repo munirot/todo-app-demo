@@ -62,6 +62,10 @@ ul li {
 
 .todo-text {
   transition: color 0.3s ease;
+  width: 16em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .todo-text:hover {
@@ -73,17 +77,40 @@ ul li {
   color: #888;
 }
 
+.todo-edit {
+  font-size: 1rem;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 .action {
   position: absolute;
   right: 12px;
 }
 
 .btn {
-  margin-left: 4px;
+  font-size: 15px;
+  margin-left: 8px;
   padding: 4px 8px;
   background: #0b1565b8;
   border-color: #153677;
   border-radius: 4px;
   color: #fff;
   cursor: pointer;
+}
+
+.btn.save {
+  background: #43a047;
+  border-color: #2bc232;
+}
+
+.btn.cancel {
+  background: #848484;
+  border-color: #5b5b5b;
+}
+
+.btn.edit {
+  background: #008b8b;
+  border-color: #37adad;
 }

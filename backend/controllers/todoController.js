@@ -1,4 +1,7 @@
 const Todo = require("../models/Todo");
+const validator = require("validator");
+
+const sanitizeString = (input) => validator.escape(validator.trim(input || ""));
 
 const getTodos = async (req, res) => {
   try {
@@ -13,7 +16,11 @@ const getTodos = async (req, res) => {
 
 const createTodo = async (req, res) => {
   try {
-    const { title } = req.body;
+    const title = sanitizeString(req.body.title);
+    
+    if (!title) {
+      return res.status(400).json({ message: "Title is required" });
+    }
     const todo = await Todo.create({ title, user: req.user.id });
     res.status(201).json(todo);
   } catch (err) {
@@ -25,11 +32,15 @@ const createTodo = async (req, res) => {
 
 const updateTodo = async (req, res) => {
   try {
-    const { completed } = req.body;
+    const completed = req.body.completed;
+    const title = req.body.title ? sanitizeString(req.body.title) : null;
+    
     const todo = await Todo.findById(req.params.id);
 
     if (todo && todo.user.toString() === req.user.id) {
-      todo.completed = completed;
+      if (completed !== undefined) todo.completed = completed;
+      if (title) todo.title = title;
+
       await todo.save();
       res.json(todo);
     } else {
