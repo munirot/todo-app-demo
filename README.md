@@ -1,6 +1,6 @@
 # **Todo App (MEVN Stack)**
 
-A simple full-stack Todo application built with the MEVN stack (MongoDB, Express.js, Vue.js, Node.js). The app allows users to register, login, logout, and manage their to-do lists with features like creating, reading, updating status, and deleting tasks.
+A simple full-stack Todo application built with the MEVN stack (MongoDB, Express.js, Vue.js, Node.js). The app allows users to register, login, logout, and manage their to-do lists with features like creating, listing, updating, and deleting tasks.
 
 ---
 
@@ -33,6 +33,33 @@ A simple full-stack Todo application built with the MEVN stack (MongoDB, Express
 
 ---
 
+## **Database Structure**
+
+The app uses MongoDB to store data. Below is the structure of the primary collections:
+
+### **Users Collection**
+Stores users information.
+
+| Field         | Type        | Description                    |
+|---------------|-------------|--------------------------------|
+| `_id`         | ObjectId    | Unique identifier for the user |
+| `username`    | String      | User's name               |
+| `email`       | String      | User's email (unique)          |
+| `password`    | String      | Hashed password                |
+| `createdAt`   | Date        | Timestamp of user registration |
+
+### **Todos Collection**
+Stores tasks information.
+
+| Field         | Type        | Description                       |
+|---------------|-------------|-----------------------------------|
+| `_id`         | ObjectId    | Unique identifier for the task    |
+| `user`        | ObjectId    | Reference to the user (foreign key) |
+| `title`       | String      | Task title                        |
+| `completed`   | Boolean     | Status of the task (tru/false)    |
+
+---
+
 ## **Getting Started**
 
 ### Prerequisites
@@ -62,7 +89,7 @@ cd backend
 npm install
 ```
 
-#### 3. Create a .env file in the backend directory and configure it:
+#### 3. Config your credential in the .env file of the backend directory:
 ```bash
 PORT=3004
 MONGO_URI=your_mongodb_uri
@@ -77,7 +104,7 @@ The backend server will run on http://localhost:3004.
 
 
 ## **Frontend Setup**
-#### 1. Navigate to the backend directory:
+#### 1. Navigate to the frontend directory:
 ```bash
 cd frontend
 ```
@@ -87,12 +114,7 @@ cd frontend
 npm install
 ```
 
-#### 3. Create a .env file in the backend directory and configure it:
-```bash
-VUE_APP_API_URL=backend_url
-```
-
-#### 4. Start the backend server:
+#### 3. Start the frontend server:
 ```bash
 npm run serve
 ```
